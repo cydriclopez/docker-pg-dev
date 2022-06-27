@@ -23,14 +23,8 @@ The key to using Docker in development is to bind mount your main project folder
 In this tutorial we will talk about how to dockerize your PostgreSQL development environment.
 
 The way I prefer to use Docker for Postgresql development purposes is to keep the image lean. To make it work takes 6 steps:
-1. Git clone this project, then type ***cd docker-ng-dev/docker***
-2. Build the image using the Dockerfile ***angular.dockerfile***
-3. Create your main Angular project folder with ***mkdir -p ~/Projects/ng***
-4. Add an alias entry in your ~/.bashrc file as shown below
-5. Reload your ~/.bashrc file with the command:   ***.   ~/.bashrc***
 
-After step 5 you can run the alias command: ***angular***<br/>
-You will now be in the Angular-Node container. To exit type ***exit***.
+
 
 The docker file ***docker/postgres.dockerfile*** is fully commented.
 ```dockerfile
