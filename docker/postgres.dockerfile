@@ -24,7 +24,7 @@
 # -w /home/psql \
 # -e POSTGRES_PASSWORD="<set-postgres-password>" postgres
 
-# 6.) Add these aliases in ~/.bashrc
+# 6.) Add these 3 aliases in ~/.bashrc
 # alias pgstart='docker start postgres14'
 # alias pgstop='docker stop postgres14'
 # alias psql='docker exec -it postgres14 psql -U postgres'
