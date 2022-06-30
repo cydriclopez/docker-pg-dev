@@ -88,7 +88,7 @@ RUN mkdir -p /home/psql
 
 ### Some preliminaries for clarity
 
-><ins>***Note that in the following command examples the colon ":" is part of my command-line prompt.</ins>
+<ins>***Note that in the following command examples the colon ":" is part of my command-line prompt.</ins>
 <br/>
 <ins>You DO NOT type the colon ":" as part of the command.***</ins>
 <br/>
