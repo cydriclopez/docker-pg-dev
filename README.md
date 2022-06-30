@@ -16,9 +16,9 @@ I recommend <ins>***using only Docker Official Images***</ins> to keep away from
 
 The Docker official repository of images is located in [<ins>hub.docker.com</ins>](https://hub.docker.com/). Here you can search for the docker image you can download. This is the docker hub page for [Postgresql](https://hub.docker.com/_/postgres).
 
-This tutorial is mostly about creating the Postgresql docker image and adding an alias command in the ***~/.bashrc*** file. It is actually a 3 step process I stretched into 6 for clarity.
+This tutorial is mostly about creating the Postgresql docker image and adding an alias command in the ***~/.bashrc*** file. It is actually a 3-step process I stretched into 6 for clarity.
 
-Installing Postgresql from you Linux distro's package system is quite straightforward but the version of Postgresql is usually old. Then you may have to install the database client separately as well. The server and client versions have to be closely matched or you may experience strange incompatibility problems. I like to think that this tutorial will make it easy to just create then run the Postgresql image.
+Installing Postgresql from your Linux distro's package system is quite straightforward but the version of Postgresql is usually old. Then you may have to install the database client separately as well. The server and client versions have to be closely matched or you may experience strange incompatibility problems. I like to think that this tutorial will make it easy to just create then run the Postgresql image.
 
 **The key to using Docker in development is to bind mount your main project folder into a folder in the Docker image using the --volume or -v option. Once you have this mapping done then use the --workdir or -w option to declare this folder inside the Docker image as the working folder.**
 
@@ -121,6 +121,7 @@ Ok now that we have some clarity, let's get right to it. 😊
 ---
 
 ### 1. Git clone this project in a working folder
+
 ```
 :git clone https://github.com/cydriclopez/docker-pg-dev.git
 :cd docker-pg-dev/docker
@@ -129,11 +130,13 @@ Ok now that we have some clarity, let's get right to it. 😊
 ### 2. Build the Postgresql image
 
 Once inside the ***docker-pg-dev/docker*** folder build the Postgresql image using the command:
+
 ```
 :docker build -f postgres.dockerfile -t postgres .
 ```
 
 Note that there is a "dot" or a period "." at the end of this command. The period "." gives the current folder as context for the docker command. It tells docker where to find the docker file ***postgres.dockerfile***. Without the "-f" it looks for the default ***Dockerfile*** file. The "-t" names the docker image. So when we type the command "docker images" it lists the created image as "postgres".
+
 ```
 :docker images
 REPOSITORY   TAG            IMAGE ID       CREATED        SIZE
@@ -150,10 +153,13 @@ The ***angular*** and ***node*** image entries were created in the previous tuto
 
 In this example the main Postgresql project folder is ***~/Projects/psql***
 So we type:
+
 ```
 :mkdir -p ~/Projects/psql
 ```
-In this project folder you can have several subfolders to house your multiple Postgresql projects.
+In this project folder you can have several sub-folders to house your multiple Postgresql projects.
+
+I like to create a folder here for every database I create. At the end of this tutorial, in the ***Example usage*** section I will show you how.
 
 ### 4. Run the script file ***postgres14***
 
@@ -279,6 +285,80 @@ Then enter ***\q*** to exit the client program ***psql***. Typing ***pgstop*** s
 
 ### Example usage
 
+Make sure you are in the folder ***docker-pg-dev/docker*** as in step ***#1***. In this folder is the file ***sample.sql*** as shown the listing below.
 
+We will make 2 sub-folders in ***~/Projects/psql*** our Postgresql main project folder. Follow the 2 ***mkdir*** commands below.
+
+Then we will run the command ***cp sample.sql ~/Projects/psql/weather*** to copy ***sample.sql*** into the ***weather*** sub-folder of our main Postgresql project folder. To confirm that it is there in the ***~/Projects/psql/weather*** folder, we use the ***ll*** command, which is actually an alias of ***ls -l*** command (set in ~/.bashrc).
+
+```bash
+:ll
+total 12
+-rwxr-x--- 1 user1 user1  507 Jun 29 17:26 postgres14
+-rw-r--r-- 1 user1 user1 1484 Jun 29 16:59 postgres.dockerfile
+-rw-r--r-- 1 user1 user1  778 Jun 30 03:03 sample.sql
+
+:mkdir ~/Projects/psql/postgres
+
+:mkdir ~/Projects/psql/weather
+
+:cp sample.sql ~/Projects/psql/weather/
+
+:ll ~/Projects/psql/weather/
+-rw-r--r-- 1 user1 user1 778 Jun 30 11:30 sample.sql
+```
+
+Now let's start Postgresql by typing ***pgstart***, then ***psql*** to connect. Try follow the commands issued below.
+
+```bash
+:pgstart
+postgres14
+
+:psql
+psql (14.2 (Debian 14.2-1.pgdg110+1))
+Type "help" for help.
+
+postgres=# \c
+You are now connected to database "postgres" as user "postgres".
+
+postgres=# \! pwd
+/home/psql
+
+postgres=# \! ls -l
+drwxr-xr-x 1 1000 1000    0 Jun 30 18:15 postgres
+drwxr-xr-x 1 1000 1000   20 Jun 30 18:30 weather
+
+postgres=# \cd weather
+
+postgres=# \! pwd
+/home/psql/weather
+
+postgres=# \! ls -l
+-rw-r--r-- 1 1000 1000 778 Jun 30 18:30 sample.sql
+
+postgres=#
+```
+
+The nice thing with the Linux terminal is that you can open several tabs in it, as many as you need. I usually open 3 to 5 tabs in my terminal as shown below.
+
+---
+
+### A little diversion
+
+***No I'm not endorsing or recommending it*** but for years now my choice work laptop is the [***Pixelbook Go***](https://store.google.com/us/product/pixelbook_go?hl=en-US). It has been out since 2019, so it is a bit dated, but it is still a really nice useful development tool. I have the i5 16Gig RAM 128GB SSD model. Now there are way nicer laptops out there but I have been happy with this one. At the current price point of $650 bucks, now this thing is a steal.
+
+---
+
+This is my Postgresql database workspace:
+<img src="assets/images/Screenshot 2022-06-30 2.01.54 PM.png" width="650"/>
+
+This is my miscellaneous tab where I can open my code editor:
+<img src="assets/images/Screenshot 2022-06-30 2.02.44 PM.png" width="650"/>
+
+I even have an Angular tab:
+<img src="assets/images/Screenshot 2022-06-30 2.10.22 PM.png" width="650"/>
+
+
+_
 
 ---
