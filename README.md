@@ -22,7 +22,7 @@ This tutorial is mostly about creating the Postgresql docker image and adding an
 
 In this tutorial we will talk about how to dockerize your PostgreSQL development environment.
 
-The way I prefer to use Docker for Postgresql development purposes is to keep the image lean. To make it work takes 7 steps:
+The way I prefer to use Docker for Postgresql development purposes is to keep the image lean. To make it work takes 6 steps:
 
 1. Git clone this project, then type ***cd docker-pg-dev/docker***
 2. Build the image using the Dockerfile ***postgres.dockerfile***
