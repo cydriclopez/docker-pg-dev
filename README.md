@@ -16,7 +16,9 @@ I recommend <ins>***using only Docker Official Images***</ins> to keep away from
 
 The Docker official repository of images is located in [<ins>hub.docker.com</ins>](https://hub.docker.com/). Here you can search for the docker image you can download. This is the docker hub page for [Postgresql](https://hub.docker.com/_/postgres).
 
-This tutorial is mostly about creating the Postgresql docker image and adding an alias command in the ***~/.bashrc*** file. It is actually a 3 step process I stretched into 7 for clarity. Installing Postgresql from you Linux distro's package system is quite straightforward but the version of Postgresql is usually old. Then you may have to install the database client as well. The server and client versions have to be closely matched or you may experience strange incompatibility problems. I like to think that this tutorial will make it easy to just create then run the Postgresql image.
+This tutorial is mostly about creating the Postgresql docker image and adding an alias command in the ***~/.bashrc*** file. It is actually a 3 step process I stretched into 6 for clarity.
+
+Installing Postgresql from you Linux distro's package system is quite straightforward but the version of Postgresql is usually old. Then you may have to install the database client separately as well. The server and client versions have to be closely matched or you may experience strange incompatibility problems. I like to think that this tutorial will make it easy to just create then run the Postgresql image.
 
 **The key to using Docker in development is to bind mount your main project folder into a folder in the Docker image using the --volume or -v option. Once you have this mapping done then use the --workdir or -w option to declare this folder inside the Docker image as the working folder.**
 
@@ -183,7 +185,7 @@ The ***-d*** option runs the docker container in the background or detached mode
 | environment variable (-e) |    | POSTGRES_PASSWORD=<br/>"my-postgres-password" |
 | run docker image |    | postgres |
 
-Run the script file ***postgres14*** by typing: ***./postgres14***
+Run the script file by typing: ***./postgres14***
 
 This script will run the postgres image in detached mode, name it ***postgres14***,
 and create volume ***postgres_volume*** if not existing. This volume provides
@@ -210,9 +212,10 @@ alias pgstop='docker stop postgres14'
 alias psql='docker exec -it postgres14 psql -U postgres'
 ```
 
-### Use your editor to add 3 alias commands ***pgstart***, ***pgstop***, and ***psql***
+### Use your editor to add 3 alias commands ***pgstart***, ***psql***, and ***pgstop***
 
 Use your code editor to edit your ***~/.bashrc*** file. In my case I enter the command:
+
 ```
 :code ~/.bashrc
 ```
@@ -220,7 +223,61 @@ Use your code editor to edit your ***~/.bashrc*** file. In my case I enter the c
 Then proceed to cut-and-paste those 3 aliases lines in the ***~/.bashrc*** file.
 
 This is how it looks like in my code editor:<br/>
-<img src="assets/images/vscode_add_3aliases.png" width="550"/>
+<img src="assets/images/vscode_add_3aliases.png" width="650"/>
+
+### 5. Save and reload your ~/.bashrc file
+
+After you have inserted the alias command in your ***~/.bashrc*** file save it, and then reload it using the command:
+
+```
+:. ~/.bashrc
+```
+
+This command starts with a period "." <ins>**followed by a space**</ins> then ***~/bashrc***
+
+Remember, as I mentioned before, the colon ":" is part of the command line prompt. You do not type it.
+
+After your ***~/.bashrc*** reloads, then the commands ***pgstart***, ***psql***, and ***pgstop***
+
+Try enter this ***pgstart*** command. Then try connect with the client program ***psql*** command.
+
+```bash
+:pgstart
+postgres14
+
+:psql
+psql (14.2 (Debian 14.2-1.pgdg110+1))
+Type "help" for help.
+
+postgres=# select version();
+                                                           version
+-----------------------------------------------------------------------------------------------------------------------------
+ PostgreSQL 14.2 (Debian 14.2-1.pgdg110+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 10.2.1-6) 10.2.1 20210110, 64-bit
+(1 row)
+
+postgres=# select now();
+              now
+-------------------------------
+ 2022-06-30 09:09:42.622304+00
+(1 row)
+
+postgres=# \c
+You are now connected to database "postgres" as user "postgres".
+
+postgres=# \q
+
+:pgstop
+postgres14
+
+:psql
+Error response from daemon: Container ed0d2d87f67b5779d787c11df26f6f138b21156724bbe80ec1dc5a2e52dfe02a is not running
+
+:
+```
+
+Then enter ***\q*** to exit the client program ***psql***. Typing ***pgstop*** stops Postgresql. Trying to connect again with ***psql*** returns an error message.
+
+### Example usage
 
 
 
