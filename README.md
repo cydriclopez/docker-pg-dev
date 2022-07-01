@@ -277,8 +277,6 @@ postgres14
 
 :psql
 Error response from daemon: Container ed0d2d87f67b5779d787c11df26f6f138b21156724bbe80ec1dc5a2e52dfe02a is not running
-
-:
 ```
 
 Then enter ***\q*** to exit the client program ***psql***. Typing ***pgstop*** stops Postgresql. Trying to connect again with ***psql*** returns an error message.
@@ -286,6 +284,8 @@ Then enter ***\q*** to exit the client program ***psql***. Typing ***pgstop*** s
 ### Example usage
 
 Make sure you are in the folder ***docker-pg-dev/docker*** as in step ***#1***. In this folder is the file ***sample.sql*** as shown the listing below.
+
+Back in ***#3*** I mentioned that, in our Postgresql project folder ***~/Projects/psql***, I like to create a folder here for every database I create.
 
 We will make 2 sub-folders in ***~/Projects/psql*** our Postgresql main project folder. Follow the 2 ***mkdir*** commands below.
 
@@ -339,6 +339,31 @@ postgres=# \! ls -l
 postgres=#
 ```
 
+Let's create the ***weather*** database then confirm that it does exist by entering ***\l*** to list all databases. The ***postgres*** database is the default.
+
+Let's connect to our newly created database by typing: ***\c weather***
+
+```bash
+postgres=# create database weather;
+CREATE DATABASE
+postgres=# \l
+                                 List of databases
+   Name    |  Owner   | Encoding |  Collate   |   Ctype    |   Access privileges
+-----------+----------+----------+------------+------------+-----------------------
+ postgres  | postgres | UTF8     | en_US.utf8 | en_US.utf8 |
+ template0 | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +
+           |          |          |            |            | postgres=CTc/postgres
+ template1 | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +
+           |          |          |            |            | postgres=CTc/postgres
+ weather   | postgres | UTF8     | en_US.utf8 | en_US.utf8 |
+(4 rows)
+
+postgres=# \c weather
+You are now connected to database "weather" as user "postgres".
+
+weather=#
+```
+
 The nice thing with the Linux terminal is that you can open several tabs in it, as many as you need. I usually open 3 to 5 tabs in my terminal as shown below.
 
 ---
@@ -356,9 +381,85 @@ This is my miscellaneous tab where I can open my code editor:
 <img src="assets/images/Screenshot 2022-06-30 2.02.44 PM.png" width="650"/>
 
 I even have an Angular tab:
-<img src="assets/images/Screenshot 2022-06-30 2.10.22 PM.png" width="650"/>
+<img src="assets/images/Screenshot 2022-06-30 5.07.10 PM.png" width="650"/>
 
 
-_
+This is the listing of our ***sample.sql*** script.
+
+```sql
+-- Sample stuff cut&pasted from
+-- https://www.postgresql.org/docs/current/tutorial-table.html
+
+CREATE TABLE weather (
+    city            varchar(80),
+    temp_lo         int,           -- low temperature
+    temp_hi         int,           -- high temperature
+    prcp            real,          -- precipitation
+    date            date
+);
+
+CREATE TABLE cities (
+    name            varchar(80),
+    location        point
+);
+
+INSERT INTO weather VALUES ('San Francisco', 46, 50, 0.25, '1994-11-27');
+
+INSERT INTO cities VALUES ('San Francisco', '(-194.0, 53.0)');
+
+INSERT INTO weather (city, temp_lo, temp_hi, prcp, date)
+    VALUES ('San Francisco', 43, 57, 0.0, '1994-11-29');
+
+INSERT INTO weather (date, city, temp_hi, temp_lo)
+    VALUES ('1994-11-29', 'Hayward', 54, 37);
+
+```
+
+Now that we are in the ***weather*** database. Let's confirm that we are in the ***weather*** folder.
+
+Let's run our ***sample.sql*** script.
+
+```bash
+postgres=# \c
+You are now connected to database "weather" as user "postgres".
+
+postgres=# \! pwd
+/home/psql/weather
+
+postgres=# \! ls -l
+-rw-r--r-- 1 1000 1000 778 Jun 30 18:30 sample.sql
+
+weather=# \i sample.sql
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+
+weather=#
+```
+
+We list all the tables we have in our ***weather*** database using ***\dt*** command. Then let's try query our tables.
+
+```sql
+weather=# \dt
+ public | cities  | table | postgres
+ public | weather | table | postgres
+
+weather=# select * from cities;
+ San Francisco | (-194,53)
+
+weather=# select * from weather;
+ San Francisco |      46 |      50 | 0.25 | 1994-11-27
+ San Francisco |      43 |      57 |    0 | 1994-11-29
+ Hayward       |      37 |      54 |      | 1994-11-29
+
+weather=#
+```
+
+I hope this has been a good introduction into ***Dockerizing your Postgresql dev environment.***
+
+Happy coding! 😊
 
 ---
