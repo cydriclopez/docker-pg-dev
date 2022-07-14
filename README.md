@@ -435,16 +435,16 @@ INSERT INTO weather (date, city, temp_hi, temp_lo)
 
 Now that we are in the ***weather*** database. Let's confirm that we are in the ***weather*** folder.
 
-Let's run our ***sample.sql*** script.
+Let's run our ***sample.sql*** script using the command: ***\i sample.sql***
 
 ```bash
-postgres=# \c
+weather=# \c
 You are now connected to database "weather" as user "postgres".
 
-postgres=# \! pwd
+weather=# \! pwd
 /home/psql/weather
 
-postgres=# \! ls -l
+weather=# \! ls -l
 -rw-r--r-- 1 1000 1000 778 Jun 30 18:30 sample.sql
 
 weather=# \i sample.sql
