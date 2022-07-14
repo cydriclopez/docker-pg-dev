@@ -218,7 +218,7 @@ docker run -d --name=postgres14 -p 5432:5432 \
 -e POSTGRES_PASSWORD="my-postgres-password" postgres
 ```
 
-The ***-d*** option runs the docker container in the background or detached mode. This is contrast to the way we ran the Angular docker image, in the [previous tutorial](https://github.com/cydriclopez/docker-ng-dev), with the "-it --rm" parameters. The ***--name=postgres14*** option names the running container ***postgres14***. The other parameters can be clarified by the following table.
+The ***-d*** option runs the docker container in the background or detached mode. This is in contrast to the way we ran the Angular docker image, in the [previous tutorial](https://github.com/cydriclopez/docker-ng-dev), with the "-it --rm" parameters. The ***--name=postgres14*** option names the running container ***postgres14***. The other parameters can be clarified by the following table.
 
 ### Table 1. Your host pc to Docker mappings table
 |    | Your host pc | Docker |
