@@ -6,17 +6,17 @@
 
 ### Why Postgresql?
 
-**Postgresql has always been THE epitome of the very definition of open-source project.**
+**Postgresql has been the epitome of the very definition of open-source project.**
 
-I have some hesitance in using products that become projects. But projects that become products that's something exciting and worth supporting. PostgreSQL has always been a project that has thrived as a product sold and supported by [many vendors](https://www.postgresql.org/support/professional_support/). PostgreSQL is really quite an exciting project/product.
+I have some hesitance in using products that become projects. But projects that become products, that's something exciting and worth supporting. PostgreSQL has always been a project that has thrived as a product sold and supported by [many vendors](https://www.postgresql.org/support/professional_support/). PostgreSQL is really quite an exciting project/product.
 
-I just hope more people use it. I drive around with a [PostgreSQL license plate frame](https://www.cafepress.com/+postgresql_license_plate_frame,46809099) just to help advertise the project.
+I hope more people use it. I drive around my car with a PostgreSQL license [plate frame](https://www.cafepress.com/+postgresql_license_plate_frame,46809099) just to help advertise the project.
 
 You can read more about its documentation, features, and history in [PostgreSQL.org](https://www.postgresql.org/about/). In IT environments strongly controlled by a competing commercial product this website might be filtered, so try this [Wikipedia site](https://en.wikipedia.org/wiki/PostgreSQL). If this Wikipedia site is blocked by a "postgresql" keyword filter then too bad for you. This just tells you that the database market is highly competitive.
 
 ### Docker intro
 
-You can read the introduction of the [previous tutorial](../docker-ng-dev/README.md#docker-intro) as it is fitting right here as well.
+You can read the Docker intro of the previous tutorial [Dockerize your Angular dev environment](https://github.com/cydriclopez/docker-ng-dev#docker-intro) as it is fitting here as well.
 
 The pairing together of Docker container and database was initially perceived with hesitance by database professionals because of the ephemeral state of containers. State persistence is a required attribute of databases even after the container is no more.
 
