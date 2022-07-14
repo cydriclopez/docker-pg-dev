@@ -12,7 +12,7 @@ I have some hesitance in using products that become projects. But projects that 
 
 I hope more people use it. I drive around my car with a PostgreSQL license [plate frame](https://www.cafepress.com/+postgresql_license_plate_frame,46809099) just to help advertise the project.
 
-You can read more about its documentation, features, and history in [PostgreSQL.org](https://www.postgresql.org/about/). In IT environments strongly controlled by a competing commercial product this website might be blocked, so try this [Wikipedia site](https://en.wikipedia.org/wiki/PostgreSQL). If this Wikipedia site is also blocked by a "postgresql" URL keyword filter then too bad for you. You can try search more info on it. This just tells you that the database market is highly competitive.
+You can read more about its documentation, features, and history in [<ins>PostgreSQL.org</ins>](https://www.postgresql.org/about/). In IT environments strongly controlled by a competing commercial product this website might be blocked, so try this [Wikipedia site](https://en.wikipedia.org/wiki/PostgreSQL). If this Wikipedia site is also blocked by a "postgresql" URL keyword filter then too bad for you. You can try search more info on it. This just tells you that the database market is highly competitive.
 
 ### Docker intro
 
@@ -24,7 +24,7 @@ In the advent of the usage of durable massively scalable storage volumes, it is 
 
 ### Docker for development
 
-For development purposes the pairing together of container and database is fitting. These days it makes a lot of sense to just download a self-contained complete database image rather than installing the database which in turn may require installing additional prerequisite software. You can even download different versions for the same database software to try out.
+For development purposes the pairing together of container and database is fitting. These days it makes a lot of sense to just download a self-contained complete database image rather than installing the database which in turn may require installing additional prerequisite software. You can even download separate docker images of different versions of the same database to try out.
 
 I recommend <ins>***using only Docker Official Images***</ins> to keep away from malicious codes and vulnerabilities. You can also use images from companies you trust.
 
