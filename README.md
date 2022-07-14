@@ -50,11 +50,6 @@ Instead of typing the previous ***docker run*** command, with all its parameters
 
 We will also be adding 3 alias commands ***pgstart, pgstop, and psql*** in your ***~/.bashrc*** file.
 
-In the previous tutorial on
-
-previous tutorial [Dockerize your Angular dev environment](https://github.com/cydriclopez/docker-ng-dev#docker-intro) as it is fitting here as well.
-
-
 ### Dockerizing Postgresql steps
 
 The way I prefer to use Docker for Postgresql development purposes is to keep the image lean. To make it work takes 6 steps:
