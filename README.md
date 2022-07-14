@@ -2,13 +2,27 @@
 
 ## Dockerize your PostgreSQL dev environment
 
->***This tutorial requires some knowledge in Linux, Docker, Git, and PostgreSQL.***
+> ***This tutorial requires some knowledge in Linux, Docker, Git, and PostgreSQL.***
 
-You can read the introduction of the previous tutorial [Dockerize your Angular dev environment](https://github.com/cydriclopez/docker-ng-dev) as it is fitting right here as well.
+### Why Postgresql?
 
-The pairing together of container and database was initially perceived with hesitance by database professionals because of the ephemeral state of containers. State persistence is a required attribute of databases even after the container is no more.
+**Postgresql has always been THE epitome of the very definition of open-source project.**
+
+I have some hesitance in using products that become projects. But projects that become products that's something exciting and worth supporting. PostgreSQL has always been a project that has thrived as a product sold and supported by [many vendors](https://www.postgresql.org/support/professional_support/). PostgreSQL is really quite an exciting project/product.
+
+I just hope more people use it. I drive around with a [PostgreSQL license plate frame](https://www.cafepress.com/+postgresql_license_plate_frame,46809099) just to help advertise the project.
+
+You can read more about its documentation, features, and history in [PostgreSQL.org](https://www.postgresql.org/about/). In IT environments strongly controlled by a competing commercial product this website might be filtered, so try this [Wikipedia site](https://en.wikipedia.org/wiki/PostgreSQL). If this Wikipedia site is blocked by a "postgresql" keyword filter then too bad for you. This just tells you that the database market is highly competitive.
+
+### Docker intro
+
+You can read the introduction of the [previous tutorial](../docker-ng-dev/README.md#docker-intro) as it is fitting right here as well.
+
+The pairing together of Docker container and database was initially perceived with hesitance by database professionals because of the ephemeral state of containers. State persistence is a required attribute of databases even after the container is no more.
 
 In the advent of the usage of durable massively scalable storage volumes, it is now de rigueur to house databases in containers.
+
+### Docker for development
 
 For development purposes the pairing together of container and database is fitting. These days it makes a lot of sense to just download a self-contained complete database image rather than installing the database which in turn may require installing additional prerequisite software. You can even download different versions for the same database software to try out.
 
@@ -23,6 +37,8 @@ Installing Postgresql from your Linux distro's package system is quite straightf
 **The key to using Docker in development is to bind mount your main project folder into a folder in the Docker image using the --volume or -v option. Once you have this mapping done then use the --workdir or -w option to declare this folder inside the Docker image as the working folder.**
 
 In this tutorial we will talk about how to dockerize your PostgreSQL development environment.
+
+### Dockerizing Postgresql steps
 
 The way I prefer to use Docker for Postgresql development purposes is to keep the image lean. To make it work takes 6 steps:
 
@@ -368,9 +384,11 @@ The nice thing with the Linux terminal is that you can open several tabs in it, 
 
 ---
 
-### A little diversion
+### My laptop setup
 
-***No I'm not endorsing or recommending it*** but for years now my choice work laptop is the [***Pixelbook Go***](https://store.google.com/us/product/pixelbook_go?hl=en-US). It has been out since 2019, so it is a bit dated, but it is still a really nice useful development tool. I have the i5 16Gig RAM 128GB SSD model. Now there are way nicer laptops out there but I have been happy with this one. At the current price point of $650 bucks, now this thing is a steal.
+***No I'm not endorsing or recommending it*** but for years now my choice work laptop is the [***Pixelbook Go***](https://store.google.com/us/product/pixelbook_go?hl=en-US). It has been out since 2019 but it is still a really nice useful development tool. I have the i5 16Gig RAM 128GB SSD model. Now there are way nicer laptops out there but I have been happy with this one and for the moment would not trade it for anything else out there. At the current price point of $650 bucks, now this thing is a steal. It runs an instance of [Debian](https://www.debian.org/) GNU/Linux 11 (bullseye) in a [LXD VM](https://linuxcontainers.org/lxd/) inside [Crostini](https://chromeos.dev/en/linux) which itself is based on Linux's built-in [KVM VM tool](https://www.linux-kvm.org/page/Main_Page). [Chrome OS](https://www.google.com/chromebook/chrome-os/) itself is based on the [Gentoo Linux distribution](https://www.gentoo.org/).
+
+There is a lot of energy and excitement in the whole [Linux ecosystem](https://www.linuxfoundation.org/). The [Open Source Initiative](https://opensource.org/) was created to protect the open source intellectual property and ensure the whole ecosystem thrives.
 
 ---
 
