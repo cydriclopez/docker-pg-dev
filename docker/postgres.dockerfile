@@ -27,7 +27,8 @@
 # alias pgstop='docker stop postgres14'
 # alias psql='docker exec -it postgres14 psql -U postgres'
 
-# 6. Then reload ~/.bashrc by entering command: . ~/.bashrc
+# 6. Then reload ~/.bashrc by entering command:
+# source ~/.bashrc
 
 # After step #6. then you can type "psql" to connect to the database.
 # To stop postgres14 type "pgstop".

@@ -1,8 +1,12 @@
 #!/bin/bash
-# This script will run the postgres image in detached mode, name it postgres14,
-# and create volume postgres_volume if not existing. This volume provides
-# persistence when the container ceases running. It will also bind mount your
-# project folder as the working folder.
+# postgres14
+# Make sure to run:
+# chmod +x postgres14
+# to make this bash script file executable. This script will run the
+# postgres image in detached mode, name it postgres14, and create
+# volume postgres_volume if not existing. This volume provides
+# persistence when the container ceases running. It will also bind
+# mount your project folder as the working folder.
 docker run -d --name=postgres14 -p 5432:5432 \
 --mount source=postgres_volume,target=/var/lib/postgresql/data \
 -v /home/user1/Projects/psql:/home/psql \

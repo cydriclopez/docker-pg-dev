@@ -8,21 +8,21 @@
 
 **Postgresql has been the epitome of the very definition of open-source project.**
 
-I have some hesitance in using products that become projects. But projects that become products, that's something exciting and worth supporting. PostgreSQL has always been a project that has thrived as a product sold and supported by [many vendors](https://www.postgresql.org/support/professional_support/). PostgreSQL is really quite an exciting project/product.
+I have some hesitance in using products that become projects. But projects that become products, that's something exciting and worth supporting. PostgreSQL has been a project that has thrived as a product sold and supported by [many vendors](https://www.postgresql.org/support/professional_support/). PostgreSQL is quite an exciting project/product.
 
-I hope more people use it. I drive around my car with a PostgreSQL license [plate frame](https://www.cafepress.com/+postgresql_license_plate_frame,46809099) just to help advertise the project.
+I hope more people use Postgresql. I drive around my car with a license [plate frame](https://www.cafepress.com/+postgresql_license_plate_frame,46809099) that advertises the project.
 
 You can read more about its documentation, features, and history in [<ins>PostgreSQL.org</ins>](https://www.postgresql.org/about/). In IT environments strongly controlled by a competing commercial product this website might be blocked, so try this [Wikipedia site](https://en.wikipedia.org/wiki/PostgreSQL). If this Wikipedia site is also blocked by a "postgresql" URL keyword filter then too bad for you. You can try search more info on it. This just tells you that the database market is highly competitive.
 
-### Docker intro
+### Database Container
 
 You can read the Docker intro of the previous tutorial [Dockerize your Angular dev environment](https://github.com/cydriclopez/docker-ng-dev#docker-intro) as it is fitting here as well.
 
 The pairing together of Docker container and database was initially perceived with hesitance by database professionals because of the ephemeral state of containers. State persistence is a required attribute of databases even after the container is no more.
 
-In the advent of the usage of durable massively scalable storage volumes, it is now de rigueur to house databases in containers.
+In the advent of the usage of massively scalable durable storage volumes, it is now de rigueur to house databases in containers.
 
-### Docker for development
+### PostgreSQL Container
 
 For development purposes the pairing together of container and database is fitting. These days it makes a lot of sense to just download a self-contained complete database image rather than installing the database which in turn may require installing additional prerequisite software. You can even download separate docker images of different versions of the same database to try out.
 
@@ -30,13 +30,30 @@ I recommend <ins>***using only Docker Official Images***</ins> to keep away from
 
 The Docker official repository of images is located in [<ins>hub.docker.com</ins>](https://hub.docker.com/). Here you can search for the docker image you can download. This is the docker hub page for [Postgresql](https://hub.docker.com/_/postgres).
 
-This tutorial is mostly about creating the Postgresql docker image and adding an alias command in the ***~/.bashrc*** file. It is actually a 3-step process I stretched into 6 for clarity.
-
 Installing Postgresql from your Linux distro's package system is quite straightforward but the version of Postgresql is usually old. Then you may have to install the database client separately as well. The server and client versions have to be closely matched or you may experience strange incompatibility problems. I like to think that this tutorial will make it easy to just create then run the Postgresql docker image.
+
+### PostgreSQL Container for development
+
+This tutorial is mostly about 1.) creating the Postgresql docker image, 2.) Running the Postgresql docker image in detached mode, and 3.) adding 3 alias commands ***pgstart, pgstop, and psql*** in your ***~/.bashrc*** file. I stretched these into 6 steps for clarity.
 
 **The key to using Docker in development is to bind mount your main project folder into a folder in the Docker image using the --volume or -v option. Once you have this mapping done then use the --workdir or -w option to declare this folder inside the Docker image as the working folder.**
 
-In this tutorial we will talk about how to dockerize your PostgreSQL development environment.
+```bash
+docker run -d --name=postgres14 -p 5432:5432 \
+--mount source=postgres_volume,target=/var/lib/postgresql/data \
+-v /home/user1/Projects/psql:/home/psql \
+-w /home/psql \
+-e POSTGRES_PASSWORD="my-postgres-password" postgres
+```
+
+Instead of typing the previous ***docker run*** command, with all its parameters, we will run a bash script ***postgres14*** in the docker folder. Later we will talk more about the preceding ***docker run*** command and its parameters.
+
+We will also be adding 3 alias commands ***pgstart, pgstop, and psql*** in your ***~/.bashrc*** file.
+
+In the previous tutorial on
+
+previous tutorial [Dockerize your Angular dev environment](https://github.com/cydriclopez/docker-ng-dev#docker-intro) as it is fitting here as well.
+
 
 ### Dockerizing Postgresql steps
 
@@ -85,7 +102,8 @@ The docker file ***docker/postgres.dockerfile*** is fully commented.
 # alias pgstop='docker stop postgres14'
 # alias psql='docker exec -it postgres14 psql -U postgres'
 
-# 6. Then reload ~/.bashrc by entering command: . ~/.bashrc
+# 6. Then reload ~/.bashrc by entering command:
+# source ~/.bashrc
 
 # After step #6. then you can type "psql" to connect to the database.
 # To stop postgres14 type "pgstop".
@@ -132,6 +150,12 @@ user1@penguin:~$
 :sudo usermod -aG docker $USER
 ```
 
+### My laptop setup
+
+***No I'm not endorsing or recommending it*** but for years now my choice work laptop is the [***Pixelbook Go***](https://store.google.com/us/product/pixelbook_go?hl=en-US). It has been out since 2019 but it is still a really nice useful development tool. I have the i5 16Gig RAM 128GB SSD model. Now there are way nicer laptops out there but I have been happy with this one and for the moment would not trade it for anything else out there. At the current price point of $650 bucks, now this thing is a steal! It runs an instance of [Debian](https://www.debian.org/) GNU/Linux 11 (bullseye) in a [LXD VM](https://linuxcontainers.org/lxd/) inside [Crostini](https://chromeos.dev/en/linux) which itself is based on Linux's built-in [KVM VM tool](https://www.linux-kvm.org/page/Main_Page). [Chrome OS](https://www.google.com/chromebook/chrome-os/) itself is based on the [Gentoo Linux distribution](https://www.gentoo.org/).
+
+There is a lot of energy and excitement in the whole [Linux ecosystem](https://www.linuxfoundation.org/). The [Open Source Initiative](https://opensource.org/) was created to protect the open source intellectual property and ensure the whole ecosystem thrives.
+
 Ok now that we have some clarity, let's get right to it. 😊
 
 ---
@@ -151,7 +175,7 @@ Once inside the ***docker-pg-dev/docker*** folder build the Postgresql image usi
 :docker build -f postgres.dockerfile -t postgres .
 ```
 
-Note that there is a "dot" or a period "." at the end of this command. The period "." gives the current folder as context for the docker command. It tells docker where to find the docker file ***postgres.dockerfile***. Without the "-f" it looks for the default ***Dockerfile*** file. The "-t" names the docker image. So when we type the command "docker images" it lists the created image as "postgres".
+Note that there is a "dot" or a period "." at the end of this command. The period "." gives the current folder as context for the ***docker build*** command. It tells the ***docker build*** command where to find the docker file ***postgres.dockerfile***. Without the "-f" it looks for the default ***Dockerfile*** file. The "-t" names the docker target image. So when we type the command "docker images" it lists the created image as "postgres".
 
 ```
 :docker images
@@ -184,10 +208,14 @@ In the folder ***docker-pg-dev/docker*** there is a bash script file ***postgres
 ```bash
 :cat postgres14
 #!/bin/bash
-# This script will run the postgres image in detached mode, name it postgres14,
-# and create volume postgres_volume if not existing. This volume provides
-# persistence when the container ceases running. It will also bind mount your
-# project folder as the working folder.
+# postgres14
+# Make sure to run:
+# chmod +x postgres14
+# to make this bash script file executable. This script will run the
+# postgres image in detached mode, name it postgres14, and create
+# volume postgres_volume if not existing. This volume provides
+# persistence when the container ceases running. It will also bind
+# mount your project folder as the working folder.
 docker run -d --name=postgres14 -p 5432:5432 \
 --mount source=postgres_volume,target=/var/lib/postgresql/data \
 -v /home/user1/Projects/psql:/home/psql \
@@ -195,7 +223,7 @@ docker run -d --name=postgres14 -p 5432:5432 \
 -e POSTGRES_PASSWORD="my-postgres-password" postgres
 ```
 
-The ***-d*** option runs the docker container in the background or detached mode. The ***--name=postgres14*** option names the running container ***postgres14***. The other parameters can be clarified by the following table.
+The ***-d*** option runs the docker container in the background or detached mode. This is contrast to the way we ran the Angular docker image, in the [previous tutorial](https://github.com/cydriclopez/docker-ng-dev), with the "-it --rm" parameters. The ***--name=postgres14*** option names the running container ***postgres14***. The other parameters can be clarified by the following table.
 
 ### Table 1. Your host pc to Docker mappings table
 |    | Your host pc | Docker |
@@ -209,9 +237,7 @@ The ***-d*** option runs the docker container in the background or detached mode
 
 Run the script file by typing: ***./postgres14***
 
-This script will run the postgres image in detached mode, name it ***postgres14***,
-and create volume ***postgres_volume*** if not existing. This volume provides
-database persistence when the container stops and then resume running. It will also bind mount your project folder as working folder.
+This script will run the postgres image in detached mode, name it ***postgres14***, and create volume ***postgres_volume*** if not existing. This volume provides database persistence when the container stops and then resume running. It will also bind mount your project folder as working folder.
 
 Running the bash script file ***./postgres14*** returns the docker container id (64-character) ***UUID long identifier***. The command ***docker ps*** returns the shorter 12-character version ***UUID short identifier*** as shown below.
 
@@ -224,7 +250,7 @@ CONTAINER ID   IMAGE      COMMAND                  CREATED              STATUS  
 ed0d2d87f67b   postgres   "docker-entrypoint.s…"   About a minute ago   Up About a minute   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   postgres14
 ```
 
-As shown above typing ***docker ps*** lists the container ***postgresql14*** as running.
+As shown above typing ***docker ps*** lists the container ***postgres14*** as running. This confirms that our docker container ***postgres14*** is running in the background or detached mode.
 
 ### 5. Add these 3 aliases in ***~/.bashrc***
 
@@ -252,10 +278,8 @@ This is how it looks like in my code editor:<br/>
 After you have inserted the alias command in your ***~/.bashrc*** file save it, and then reload it using the command:
 
 ```
-:. ~/.bashrc
+:source ~/.bashrc
 ```
-
-This command starts with a period "." <ins>**followed by a space**</ins> then ***~/bashrc***
 
 Remember, as I mentioned before, the colon ":" is part of the command line prompt. You do not type it.
 
@@ -381,16 +405,6 @@ weather=#
 ```
 
 The nice thing with the Linux terminal is that you can open several tabs in it, as many as you need. I usually open 3 to 5 tabs in my terminal as shown below.
-
----
-
-### My laptop setup
-
-***No I'm not endorsing or recommending it*** but for years now my choice work laptop is the [***Pixelbook Go***](https://store.google.com/us/product/pixelbook_go?hl=en-US). It has been out since 2019 but it is still a really nice useful development tool. I have the i5 16Gig RAM 128GB SSD model. Now there are way nicer laptops out there but I have been happy with this one and for the moment would not trade it for anything else out there. At the current price point of $650 bucks, now this thing is a steal. It runs an instance of [Debian](https://www.debian.org/) GNU/Linux 11 (bullseye) in a [LXD VM](https://linuxcontainers.org/lxd/) inside [Crostini](https://chromeos.dev/en/linux) which itself is based on Linux's built-in [KVM VM tool](https://www.linux-kvm.org/page/Main_Page). [Chrome OS](https://www.google.com/chromebook/chrome-os/) itself is based on the [Gentoo Linux distribution](https://www.gentoo.org/).
-
-There is a lot of energy and excitement in the whole [Linux ecosystem](https://www.linuxfoundation.org/). The [Open Source Initiative](https://opensource.org/) was created to protect the open source intellectual property and ensure the whole ecosystem thrives.
-
----
 
 This is my Postgresql database workspace:
 <img src="assets/images/Screenshot 2022-06-30 2.01.54 PM.png" width="650"/>
