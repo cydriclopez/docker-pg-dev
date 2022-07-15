@@ -186,15 +186,17 @@ The ***angular*** and ***node*** image entries were created in the previous tuto
 
 ### 3. Create your main Postgresql project folder
 
+Create your main Postgresql project working folder. This folder can be anywhere as long as it agrees with the volume mapping "-v" parameter in the next step.
+
 In this example the main Postgresql project folder is ***~/Projects/psql***
 So we type:
 
 ```
 :mkdir -p ~/Projects/psql
 ```
-In this project folder you can have several sub-folders to house your multiple Postgresql projects.
+In this project folder you can have several sub-folders to house your multiple Postgresql projects. I like to create a folder here for every database I create. At the end of this tutorial, in the ***Example usage*** section I will show you how.
 
-I like to create a folder here for every database I create. At the end of this tutorial, in the ***Example usage*** section I will show you how.
+We will create a folder ***postgres***, for the default ***postgres*** database, and a ***weather*** folder for our ***weather*** database that we will create. We will copy our sample script into our ***weather*** folder.
 
 ### 4. Run the script file ***postgres14***
 
