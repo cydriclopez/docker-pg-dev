@@ -46,6 +46,8 @@ docker run -d --name=postgres14 -p 5432:5432 \
 -e POSTGRES_PASSWORD="my-postgres-password" postgres
 ```
 
+The parameters in the above ***docker run*** command can be included in the Dockerfile ***postgres.dockerfile*** but I like the flexibility of adding them in an alias command in my ***~/.bashrc*** file. Note that ***docker run*** options take precedence over anything in the Dockerfile; but some options (like -v/VOLUME) are [additive](https://forums.docker.com/t/does-docker-run-v-or-dockerfile-volume-take-precedence/22681).
+
 Instead of typing the previous ***docker run*** command, with all its parameters, we will run a bash script ***postgres14*** in the docker folder. Later we will talk more about the preceding ***docker run*** command and its parameters.
 
 We will also be adding 3 alias commands ***pgstart, pgstop, and psql*** in your ***~/.bashrc*** file.
