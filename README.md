@@ -6,7 +6,7 @@
 
 ### Why Postgresql?
 
-**Postgresql has been the epitome of the very definition of open-source project.**
+**Postgresql is the epitome of the very definition of open-source project.**
 
 I have some hesitance in using products that become projects. But projects that become products, that's something exciting and worth supporting. PostgreSQL has been a project that has thrived as a product sold and supported by [many vendors](https://www.postgresql.org/support/professional_support/). PostgreSQL is quite an exciting project/product.
 
