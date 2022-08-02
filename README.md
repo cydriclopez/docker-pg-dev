@@ -61,7 +61,7 @@ The way I prefer to use Docker for Postgresql development purposes is to keep th
 3. Create your main Postgresql project folder with ***mkdir -p ~/Projects/psql***
 4. Run image in detached mode by running bash script ***./postgres14***
 5. Add 3 aliases your ~/.bashrc file as shown below
-6. Reload your ~/.bashrc file with the command:   ***.   ~/.bashrc***
+6. Reload your ~/.bashrc file with the command:   ***source ~/.bashrc***
 
 After step 6 you can run the alias command: ***pgstart***<br/>
 Then type ***psql*** to run the client to connect to Postgresql.<br/>
@@ -272,7 +272,7 @@ Then proceed to cut-and-paste those 3 aliases lines in the ***~/.bashrc*** file.
 This is how it looks like in my code editor:<br/>
 <img src="assets/images/vscode_add_3aliases.png" width="650"/>
 
-### 5. Save and reload your ~/.bashrc file
+### 6. Save and reload your ~/.bashrc file
 
 After you have inserted the alias command in your ***~/.bashrc*** file save it, and then reload it using the command:
 
